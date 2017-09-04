@@ -1,18 +1,17 @@
 package com.jam.skinchanged;
 
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.TextView;
 
-import com.jam.skinchanged.skin.SkinChangedListener;
 import com.jam.skinchanged.skin.SkinManager;
+import com.jam.skinchanged.skin.constant.Skin;
 
 public class MainActivity extends AppCompatActivity {
 
     private TextView mWelcomeTv;
-    private SkinManager mSkinManager;
-    private int mSkinType = SkinManager.TYPE_RED;
+    private int mSkinType = Skin.TYPE_RED;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,28 +22,17 @@ public class MainActivity extends AppCompatActivity {
         findViewById(R.id.button).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (mSkinType == SkinManager.TYPE_RED) {
-                    mSkinType = SkinManager.TYPE_GREEN;
+                if (mSkinType == Skin.TYPE_RED) {
+                    mSkinType = Skin.TYPE_GREEN;
                 } else {
-                    mSkinType = SkinManager.TYPE_RED;
+                    mSkinType = Skin.TYPE_RED;
                 }
-                mSkinManager.changeSkin(mSkinType);
+                SkinManager.getInstance(MainActivity.this).changeSkin(mSkinType);
             }
         });
 
-        mSkinManager = new SkinManager();
-        mSkinManager.setSkinChangedListener(new SkinChangedListener() {
-            @Override
-            public void onSkinChanged() {
-                updateUI();
-            }
-        });
-
-        updateUI();
-    }
-
-    private void updateUI() {
-        mWelcomeTv.setTextColor(getResources().getColor(mSkinManager.getSkin().getTextPrimaryColor()));
-        mWelcomeTv.setBackgroundColor(getResources().getColor(mSkinManager.getSkin().getBackgroundPrimaryColor()));
+        SkinManager.getInstance(this).addChangedView(mWelcomeTv, Skin.VIEW_BACKGROUND);
+        SkinManager.getInstance(this).addChangedView(mWelcomeTv, Skin.VIEW_TEXTCOLOR);
+        SkinManager.getInstance(this).changeSkin(mSkinType);
     }
 }
