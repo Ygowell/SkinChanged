@@ -8,6 +8,7 @@
     tools:context="com.jam.skinchanged.MainActivity">
 
     <TextView
+        android:id="@+id/welcomeTv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Hello World!"
@@ -15,5 +16,10 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"/>
+    <Button
+        android:id="@+id/button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" android:text="Change Skin"
+        tools:layout_editor_absoluteX="147dp" tools:layout_editor_absoluteY="337dp"/>
 
 </android.support.constraint.ConstraintLayout>
